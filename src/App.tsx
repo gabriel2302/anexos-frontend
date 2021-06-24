@@ -1,22 +1,15 @@
-import {useEffect} from 'react'
+import React from 'react'
 import { GlobalStyle } from './styles/GlobalStyle'
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from './routes';
 
-import { Greetings } from './components/Greetings'
-import api from './services/api'
-
-interface Student {
-  id: string;
-  name: string;
-}
-export function App() {
-  const [student, setStudent] = useEffect([]) 
-  useEffect(()=> {
-    api.get('students').then(response => setStudent(response.data))
-  },[]);
+const App: React.FC = () => {
   return (
-    <>
+    <Router>
       <GlobalStyle />
-      <Greetings />
-    </>
+      <Routes/>
+    </Router>
   )
 }
+
+export default App
