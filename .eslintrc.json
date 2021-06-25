@@ -17,6 +17,8 @@
   "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
     "react/prop-types": "off",
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "no-unused-vars": "off",
+    "no-undef": "off"
   }
 }
