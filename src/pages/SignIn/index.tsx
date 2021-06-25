@@ -2,12 +2,14 @@ import React, { useCallback, useRef } from 'react'
 import { Form } from '@unform/web'
 import { FormHandles, SubmitHandler } from '@unform/core'
 import * as Yup from 'yup'
+import { useHistory } from 'react-router-dom'
 
 import logo from '../../assets/logo-educacao.png'
 import styles from './styles.module.scss'
 import Input from '../../components/Input'
 import getValidationErrors from '../../utils/getValidationErrors'
 import { useAuth } from '../../hooks/auth'
+import { useToast } from '../../hooks/toast'
 
 interface FormData {
   username: string
@@ -17,6 +19,8 @@ interface FormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
   const { signIn } = useAuth()
+  const { addToast } = useToast()
+  const history = useHistory()
 
   const handleSubmit: SubmitHandler<FormData> = useCallback(async data => {
     try {
@@ -29,15 +33,20 @@ const SignIn: React.FC = () => {
         abortEarly: false,
       })
 
-      // Login
       await signIn({ username: data.username, password: data.password })
+      history.push('/dashboard')
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err)
         formRef.current?.setErrors(errors)
         return
       }
-      console.log(`Usuario ou senha invalida`)
+
+      addToast({
+        type: 'error',
+        title: 'Erro na autenticação',
+        description: 'Ocorreu um erro ao fazer login, cheque as credenciais',
+      })
     }
   }, [])
 
