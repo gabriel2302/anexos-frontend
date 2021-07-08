@@ -1,6 +1,10 @@
+import { Link } from 'react-router-dom'
+
+import { useAuth } from '../../../hooks/auth'
 import './styles.scss'
 
 export function DropdownMenu() {
+  const { signOut } = useAuth()
   return (
     <ul className="dropdown">
       <div className="dropdown__left">
@@ -11,6 +15,21 @@ export function DropdownMenu() {
               <a href="#" className="dropdown__submenu-link">
                 Cadastrar
               </a>
+            </li>
+            <li className="dropdown__submenu-item">
+              <a href="#" className="dropdown__submenu-link">
+                Visualizar
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li className="dropdown__item">
+          <span className="dropdown__item-title">Professores</span>
+          <ul className="dropdown__submenu">
+            <li className="dropdown__submenu-item">
+              <Link to="/add-teacher" className="dropdown__submenu-link">
+                Cadastrar
+              </Link>
             </li>
             <li className="dropdown__submenu-item">
               <a href="#" className="dropdown__submenu-link">
@@ -55,7 +74,9 @@ export function DropdownMenu() {
             </a>
           </li>
           <li className="dropdown__submenu-item">
-            <button className="dropdown__submenu-button">Sair</button>
+            <button className="dropdown__submenu-button" onClick={signOut}>
+              Sair
+            </button>
           </li>
         </ul>
       </li>

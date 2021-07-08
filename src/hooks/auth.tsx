@@ -7,6 +7,9 @@ interface User {
   id: string
   username: string
   role: string
+  name: string
+  enrollment: string
+  institution_id: string
 }
 interface AuthState {
   token: string
