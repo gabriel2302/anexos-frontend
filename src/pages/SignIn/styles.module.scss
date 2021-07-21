@@ -41,6 +41,10 @@
     border-color: transparent;
     background: #fff;
     font-size: 18px;
+
+    &:focus {
+      outline-color: #2684ff;
+    }
   }
   & span {
     color: red;

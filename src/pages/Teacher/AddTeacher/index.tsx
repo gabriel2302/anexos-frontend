@@ -1,16 +1,15 @@
 import { useCallback, useRef } from 'react'
 import { Form } from '@unform/web'
 import { FormHandles, SubmitHandler } from '@unform/core'
-import { AxiosError } from 'axios'
+
 import * as Yup from 'yup'
-import DashboardLayout from '../../components/Layout/Dashboard'
-import Input from '../../components/Input'
-import Select from '../../components/Select'
+import DashboardLayout from '../../../components/Layout/Dashboard'
+import Input from '../../../components/Input'
+import Select from '../../../components/Select'
 import './styles.scss'
-import getValidationErrors from '../../utils/getValidationErrors'
-import api from '../../services/api'
-import { useToast } from '../../hooks/toast'
-import { useAuth } from '../../hooks/auth'
+import getValidationErrors from '../../../utils/getValidationErrors'
+import api from '../../../services/api'
+import { useToast } from '../../../hooks/toast'
 
 interface FormData {
   name: string
@@ -20,10 +19,9 @@ interface FormData {
   functional_situation: string
 }
 
-export default function Teacher() {
+export default function AddTeacher() {
   const formRef = useRef<FormHandles>(null)
   const { addToast } = useToast()
-  const { user } = useAuth()
   const handleSubmit: SubmitHandler<FormData> = useCallback(async data => {
     try {
       formRef.current?.setErrors({})

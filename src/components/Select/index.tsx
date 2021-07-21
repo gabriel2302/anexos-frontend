@@ -28,11 +28,14 @@ export default function Select({ name, ...rest }: Props) {
     })
   }, [fieldName, registerField, rest.isMulti])
   return (
-    <ReactSelect
-      defaultValue={defaultValue}
-      ref={selectRef}
-      classNamePrefix="react-select"
-      {...rest}
-    />
+    <>
+      <ReactSelect
+        defaultValue={defaultValue}
+        ref={selectRef}
+        classNamePrefix="react-select"
+        {...rest}
+      />
+      {error && <span>{error}</span>}
+    </>
   )
 }

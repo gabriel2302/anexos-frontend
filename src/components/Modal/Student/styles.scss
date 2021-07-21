@@ -1,0 +1,32 @@
+.container {
+  margin: 20px 0 20px auto;
+  @media screen and (max-width: 578px) {
+    margin: 0 auto;
+  }
+}
+
+.exit-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  z-index: 10;
+  background-color: transparent;
+  color: #000;
+  padding: 10px;
+  :hover {
+    color: #999;
+    cursor: pointer;
+  }
+  @media screen and (max-width: 578px) {
+    top: 40px;
+    right: 40px;
+  }
+  svg {
+    height: 24px;
+    width: 24px;
+  }
+}

@@ -12,14 +12,14 @@ export function DropdownMenu() {
           <span className="dropdown__item-title">Alunos</span>
           <ul className="dropdown__submenu">
             <li className="dropdown__submenu-item">
-              <a href="#" className="dropdown__submenu-link">
+              <Link to="/add-student" className="dropdown__submenu-link">
                 Cadastrar
-              </a>
+              </Link>
             </li>
             <li className="dropdown__submenu-item">
-              <a href="#" className="dropdown__submenu-link">
+              <Link to="/students" className="dropdown__submenu-link">
                 Visualizar
-              </a>
+              </Link>
             </li>
           </ul>
         </li>
@@ -32,9 +32,9 @@ export function DropdownMenu() {
               </Link>
             </li>
             <li className="dropdown__submenu-item">
-              <a href="#" className="dropdown__submenu-link">
+              <Link to="/teachers" className="dropdown__submenu-link">
                 Visualizar
-              </a>
+              </Link>
             </li>
           </ul>
         </li>

@@ -1,0 +1,96 @@
+.container {
+  padding: 30px 25px;
+  background: #fff;
+  border-radius: 20px;
+  position: relative;
+  @media screen and (max-width: 578px) {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media screen and (max-width: 578px) {
+    margin-top: -70px;
+    padding: 5px;
+  }
+}
+
+.uteacher {
+  padding: 50px;
+  > * {
+    color: #000;
+  }
+
+  &__header--h1 {
+    font-size: 36px;
+    color: #000;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  &__input {
+    align-items: center;
+    width: 100%;
+    font-size: 16px;
+    background-color: hsl(0, 0%, 100%);
+    border-color: hsl(0, 0%, 80%);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 2px 8px;
+    min-height: 38px;
+    transition: all 100ms;
+
+    &:focus {
+      outline-color: #2684ff;
+    }
+  }
+
+  &__input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+    label {
+      margin-bottom: 6px;
+      color: #777;
+    }
+    span {
+      color: red;
+      margin-top: 8px;
+    }
+    select {
+      width: 100%;
+      font-size: 16px;
+      color: #000;
+    }
+  }
+
+  &__button {
+    margin-top: 10px;
+    background-color: #2684ff;
+    color: #fff;
+    border: 0;
+    padding: 0 20px;
+    height: 38px;
+    border-radius: 4px;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+
+    &-cancel {
+      background-color: red;
+      margin-right: 15px;
+    }
+  }
+}
