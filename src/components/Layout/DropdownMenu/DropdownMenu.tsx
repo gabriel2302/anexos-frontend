@@ -42,14 +42,14 @@ export function DropdownMenu() {
           <span className="dropdown__item-title">Turmas</span>
           <ul className="dropdown__submenu">
             <li className="dropdown__submenu-item">
-              <a href="#" className="dropdown__submenu-link">
+              <Link to="/add-classroom" className="dropdown__submenu-link">
                 Cadastrar
-              </a>
+              </Link>
             </li>
             <li className="dropdown__submenu-item">
-              <a href="#" className="dropdown__submenu-link">
+              <Link to="/classrooms" className="dropdown__submenu-link">
                 Visualizar
-              </a>
+              </Link>
             </li>
             <li className="dropdown__submenu-item">
               <a href="#" className="dropdown__submenu-link">
