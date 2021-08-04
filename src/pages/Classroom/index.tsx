@@ -6,7 +6,7 @@ import Filter from '../../components/Filter'
 import api from '../../services/api'
 import './styles.scss'
 import { useToast } from '../../hooks/toast'
-import UpdateTeacher from '../../components/Modal/Teacher/'
+import UpdateClassroom from '../../components/Modal/Classroom'
 
 type Institution = {
   name: string
@@ -25,24 +25,24 @@ type Person = {
 }
 
 type IClassroomPeople = {
+  id?: string
   person: Person
 }
 
 type IClassroom = {
+  id: string;
   name: string;
   shift: string;
   year: string;
   classroom_people: IClassroomPeople[]
+  teacher: string
 }
 
-type ITeacher = {
-  name: string;
-}
+
 
 export default function Classroom() {
   const [classroom, setClassroom] = useState<IClassroom[]>([])
-  const [teachers, setTeachers] = useState<ITeacher[]>([])
-  const [editItem, setEditItem] = useState({} as Person)
+  const [editItem, setEditItem] = useState({} as IClassroom)
   const { addToast } = useToast()
   const [isOpenTeacherModal, setIsOpenTeacherModal] = useState(false)
 
@@ -68,7 +68,7 @@ export default function Classroom() {
     },
     {
       name: 'Professores',
-      selector: 'teachers',
+      selector: 'teacher',
       sortable: true,
     },
     {
@@ -78,15 +78,16 @@ export default function Classroom() {
         <button
           type="button"
           onClick={() => {
+            console.log(row)
             setEditItem({
               id: row.id,
               name: row.name,
-              enrollment: row.enrollment,
-              office: row.office,
-              functional_situation: row.functional_situation,
-              institution: row.institution,
-              occupation: row.occupation,
+              shift: row.shift,
+              teacher: row.teacher,
+              classroom_people: row.classroom_people,
+              year: row.year
             })
+            console.log(editItem)
             setIsOpenTeacherModal(prevstate => !prevstate)
           }}
           className="button button-edit"
@@ -102,10 +103,14 @@ export default function Classroom() {
     api
       .get<IClassroom[]>('/classrooms')
       .then(response => {
-        const formattedTeachers = response.data.map(item => item.classroom_people.map(item => {
-         return  item.person.name
-        }))
-        setClassroom(response.data)
+        const formattedData = response.data.map(item => {
+          const teachers = item.classroom_people.map(item => item.person.name)
+          return {
+            ...item,
+            teacher: teachers.join(', ')
+          }
+        })
+        setClassroom(formattedData)
       })
       .catch(err => {
         console.log(err)
@@ -157,7 +162,7 @@ export default function Classroom() {
         />
       </div>
 
-      <UpdateTeacher
+      <UpdateClassroom
         visible={isOpenTeacherModal}
         onRequestClose={handleTeacherModalClose}
         item={editItem}
