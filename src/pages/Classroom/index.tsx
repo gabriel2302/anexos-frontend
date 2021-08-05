@@ -35,7 +35,7 @@ type IClassroom = {
   shift: string;
   year: string;
   classroom_people: IClassroomPeople[]
-  teacher: string
+  teacher?: string
 }
 
 
@@ -44,7 +44,7 @@ export default function Classroom() {
   const [classroom, setClassroom] = useState<IClassroom[]>([])
   const [editItem, setEditItem] = useState({} as IClassroom)
   const { addToast } = useToast()
-  const [isOpenTeacherModal, setIsOpenTeacherModal] = useState(false)
+  const [isOpenClassroomModal, setIsOpenClassroomModal] = useState(false)
 
   const [filterText, setFilterText] = useState('')
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false)
@@ -78,17 +78,14 @@ export default function Classroom() {
         <button
           type="button"
           onClick={() => {
-            console.log(row)
             setEditItem({
               id: row.id,
               name: row.name,
+              year: row.year,
               shift: row.shift,
-              teacher: row.teacher,
-              classroom_people: row.classroom_people,
-              year: row.year
+              classroom_people: row.classroom_people
             })
-            console.log(editItem)
-            setIsOpenTeacherModal(prevstate => !prevstate)
+            setIsOpenClassroomModal(prevstate => !prevstate)
           }}
           className="button button-edit"
         >
@@ -163,7 +160,7 @@ export default function Classroom() {
       </div>
 
       <UpdateClassroom
-        visible={isOpenTeacherModal}
+        visible={isOpenClassroomModal}
         onRequestClose={handleTeacherModalClose}
         item={editItem}
       />

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import './styles.scss'
 
 import { FormHandles, SubmitHandler } from '@unform/core'
@@ -13,7 +13,7 @@ import api from '../../../../services/api'
 import Select from '../../../Select'
 
 
-type Person = {
+type IPerson = {
   id: string
   name: string
   enrollment: string
@@ -21,12 +21,21 @@ type Person = {
   functional_situation: string
 }
 
+type Person = {
+  person: IPerson
+}
+
 type IClassroom = {
   id: string
   name: string
   year: string
   shift: string
-  people: Person[]
+  classroom_people: Person[]
+}
+
+type ITeacher = {
+  id: string;
+  name: string;
 }
 
 interface ModalProps {
@@ -36,11 +45,29 @@ interface ModalProps {
 
 const UpdateClassroom: React.FC<ModalProps> = ({ onRequestClose, item }) => {
   const formRef = useRef<FormHandles>(null)
+  const [people, setPeople] = useState<ITeacher[]>([])
   const { addToast } = useToast()
 
   function closeModal() {
     onRequestClose()
   }
+
+      // Busca os professores no banco
+      useEffect(() => {
+        api
+          .get<ITeacher[]>('/people/all')
+          .then(response => {
+            setPeople(response.data)
+          })
+          .catch(err => {
+            console.log(err)
+            addToast({
+              type: 'error',
+              title: 'Erro ao carregar professores',
+              description: 'Verifique sua conexao ou contate o admnistrador',
+            })
+          })
+      }, [])
 
   const handleSubmit = useCallback(async (data: IClassroom) => {
     try {
@@ -85,6 +112,22 @@ const UpdateClassroom: React.FC<ModalProps> = ({ onRequestClose, item }) => {
     }
   }, [])
 
+  // Todos os professores para colocar no select
+  const teacherOptions= people.map(item => {
+    return {
+      id: item.id,
+      name: item.name
+    }
+  })
+
+  // Professores cadastrados na turma
+  const teachers = item.classroom_people.map(item => {
+    return {
+      id: item.person.id,
+      name: item.person.name
+    }
+  })
+
   return (
     <div className="container">
       <div className="content">
@@ -125,8 +168,15 @@ const UpdateClassroom: React.FC<ModalProps> = ({ onRequestClose, item }) => {
               placeholder="Selecione uma opção"
               isMulti
               name="people"
+              maxMenuHeight={200}
+              menuPlacement="auto"
+              defaultValue={teachers.map(person => ({
+                label: person.name,
+                value: person.id
+              }))}
+
               options={
-                item.people.map(person => ({
+                teacherOptions.map(person => ({
                   label: person.name,
                   value: person.id
                 }))

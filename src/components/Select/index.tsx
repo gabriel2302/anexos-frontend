@@ -32,6 +32,8 @@ export default function Select({ name, ...rest }: Props) {
       <ReactSelect
         defaultValue={defaultValue}
         ref={selectRef}
+        maxMenuHeight={220}
+        menuPlacement="auto"
         classNamePrefix="react-select"
         {...rest}
       />
